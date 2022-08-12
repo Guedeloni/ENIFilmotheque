@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head th:replace="fragments/template :: head('FMQT - Films - Création')"></head>
+<body>
+  <header th:replace="fragments/template :: header"></header>
+  <h2>Création d'un nouveau film</h2>
+
+  <form th:action="@{/films/admin/creation}" method="post" th:object="${film}">
+    <div>
+      <label for="titre">Titre : </label>
+      <input type="text" th:field="*{titre}" id="titre" required>
+      <span class="error" th:errors="*{titre}"></span>
+    </div>
+    <div>
+      <label for="dateSortie">Date de sortie : </label>
+      <input type="date" th:field="*{dateSortie}" id="dateSortie" required>
+      <span class="error" th:errors="*{dateSortie}"></span>
+    </div>
+    <div>
+      <label for="duree">Durée du film (mn.) : </label>
+      <input type="number" th:field="*{duree}" id="duree" required>
+      <span class="error" th:errors="*{duree}"></span>
+    </div>
+    <div>
+      <label for="synopsis">Synopsis : </label>
+      <textarea rows="3" cols="30" th:field="*{synopsis}" id="synopsis" required>
+      </textarea>
+      <span class="error" th:errors="*{synopsis}"></span>
+    </div>
+    <div>
+      <label for="image">Affiche (URL) : </label>
+      <input type="text" th:field="*{image}" id="image" required>
+      <span class="error" th:errors="*{image}"></span>
+    </div>
+    <div>
+      <label for="genre">Genre : </label>
+      <select type="text" th:field="*{genre}" id="genre" required>
+        <option value="1">-- Genre --</option>
+        <option th:each="genre : ${genreList}" th:value="${genre.id}" th:text="${genre.libelle}"></option>
+      </select>
+    </div>
+    <div>
+      <label for="realisateur">Réalisateur : </label>
+      <select type="text" th:field="*{realisateur}" id="realisateur">
+        <option value="1">-- Réalisateur --</option>
+        <option th:if="${participant.realisateur}" th:each="participant : ${participantList}"
+                th:value="${participant.id}" th:text="|${participant.nom} ${participant.prenom}|">
+        </option>
+      </select>
+    </div>
+    <div>
+      <label for="acteurs">Acteurs : </label>
+      <select type="text" th:field="*{acteurs}" id="acteurs" multiple>
+        <option value="1">-- Acteur(s) --</option>
+        <option th:if="${participant.acteur}" th:each="participant : ${participantList}"
+                th:value="${participant.id}" th:text="|${participant.nom} ${participant.prenom}|">
+        </option>
+      </select>
+    </div>
+    <button type="submit">Valider</button>
+  </form>
+  <h4 th:text="${message}"></h4>
+</body>
+</html>

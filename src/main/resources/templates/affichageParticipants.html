@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head th:replace="fragments/template :: head('FMQT - Participants - Affichage')"></head>
+<body>
+  <header th:replace="fragments/template :: header"></header>
+  <a th:href="@{/admin/participants/creation}">Ajout d'un participant</a>
+  <h2>Liste des participants</h2>
+  <ul>
+    <li th:each="participant : ${participantList}">
+      <div th:text="|${participant.nom} - ${participant.prenom}${participant.acteur ? ' - Acteur' : ''}${participant.realisateur ? ' - Réalisateur' : ''}|">
+      </div>
+      <img th:src="${participant.image}" th:alt="|Portrait de ${participant.nom}|">
+    </li>
+  </ul>
+</body>
+</html>

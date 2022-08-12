@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head th:replace="fragments/template :: head('FMQT - Membres - Affichage')"></head>
+<body>
+  <header th:replace="fragments/template :: header"></header>
+  <a th:href="@{/admin/membres/creation}">Ajout d'un membre</a>
+  <h2>Liste des membres</h2>
+  <ul>
+    <li th:each="membre : ${membreList}">
+      <img th:src="${membre.avatar}" th:alt="|Avatar de ${membre.login}|">
+      <div th:text="|${membre.login} - ${membre.password} - Admin. : ${membre.admin ? 'oui' : 'non'}|">
+      </div>
+    </li>
+  </ul>
+</body>
+</html>

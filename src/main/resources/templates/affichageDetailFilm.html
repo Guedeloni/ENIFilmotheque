@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head th:replace="fragments/template :: head('FMQT - Films - Détail')"></head>
+<body>
+  <header th:replace="fragments/template :: header">
+
+  </header>
+  <a sec:authorize="isAuthenticated()" th:href="|/prive/avis/creation?id=${film.id}|">Ajout d'un avis</a>
+  <h2>Détail du film</h2>
+  <div th:text="|${film.titre} - ${film.dateSortie} - ${film.duree/60}h${(film.duree/60f) - film.duree/60}mn. - ${film.genre.getLibelle()}|">
+  </div>
+<!--  <img th:src="${film.image}" th:alt="|Affiche de ${film.titre}|">-->
+  <div th:text="|Synopsis : ${film.synopsis}|"></div>
+  <div th:text="|Réalisateur : ${film.realisateur.getPrenom()} ${film.realisateur.getNom()}|">
+    <img th:src="${film.realisateur.getImage()}"
+         th:alt="|Portrait de ${film.realisateur.getPrenom()} ${film.realisateur.getNom()}|">
+  </div>
+  <div>
+    <p>Acteurs :</p>
+    <ul>
+      <li th:each="acteur : ${film.acteurs}">
+        <div th:text="|${acteur.prenom} - ${acteur.nom}|"></div>
+        <img th:src="${acteur.image}" th:alt="|Portrait de ${acteur.prenom} ${acteur.nom}|">
+      </li>
+    </ul>
+  </div>
+
+  <h2>Liste des avis</h2>
+  <ul>
+    <li th:each="avis : ${film.avisList}">
+      <div th:text="${avis.membre.login}"></div>
+      <div th:text="|Note : ${avis.note}/5|"></div>
+      <div th:text="|Commentaire : ${avis.commentaire}|"></div>
+    </li>
+  </ul>
+</body>
+</html>

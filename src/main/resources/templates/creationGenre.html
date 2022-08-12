@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head th:replace="fragments/template :: head('FMQT - Genres - Création')"></head>
+<body>
+    <header th:replace="fragments/template :: header"></header>
+    <h2>Création d'un nouveau genre</h2>
+    <h3>Liste des genres existants</h3>
+    <ul th:each="genre : ${genreList}">
+        <li th:text="|${genre.libelle} ${genre.id}|"></li>
+    </ul>
+
+    <form th:action="@{/admin/genres}" method="post" th:object="${genre}">
+        <div>
+            <label for="libelle">Nouveau genre : </label>
+            <input type="text" th:field="*{libelle}" id="libelle" required>
+            <span class="error" th:errors="*{libelle}"></span>
+        </div>
+        <button type="submit">Valider</button>
+    </form>
+    <h4 th:text="${message}"></h4>
+</body>
+</html>

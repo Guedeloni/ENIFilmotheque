@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head th:replace="fragments/template :: head('FMQT - Membres - Création')"></head>
+<body>
+  <header th:replace="fragments/template :: header"></header>
+  <a th:href="@{/admin/membres}">Liste des membres</a>
+  <h2>Création d'un nouveau membre</h2>
+
+  <form th:action="@{/admin/membres/creation}" method="post" th:object="${membre}">
+    <div>
+      <label for="login">Login : </label>
+      <input type="text" th:field="*{login}" id="login" required>
+      <span class="error" th:errors="*{login}"></span>
+    </div>
+    <div>
+      <label for="password">Password : </label>
+      <input type="password" th:field="*{password}" id="password" required>
+      <span class="error" th:errors="*{password}"></span>
+    </div>
+<!--    <div>-->
+<!--      <label for="confirmPassword">Confirm password : </label>-->
+<!--      <input type="password" id="confirmPassword" required>-->
+<!--      <span class="error" th:errors="*{password}"></span>-->
+<!--    </div>-->
+    <div>
+      <label for="avatar">Avatar (URL) : </label>
+      <input type="text" th:field="*{avatar}" id="avatar">
+      <span class="error" th:errors="*{avatar}"></span>
+    </div>
+    <div>
+      <label for="admin">Administrateur : </label>
+      <input type="checkbox" th:field="*{admin}" id="admin" value="true">
+    </div>
+    <button type="submit">Valider</button>
+  </form>
+  <h4 th:text="${message}"></h4>
+</body>
+</html>

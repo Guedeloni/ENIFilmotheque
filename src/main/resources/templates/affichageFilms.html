@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head th:replace="fragments/template :: head('FMQT - Films - Création')"></head>
+<body>
+  <header th:replace="fragments/template :: header">
+
+  </header>
+  <a sec:authorize="hasRole('admin')" th:href="@{/films/admin/creation}">Ajout d'un film</a>
+  <!--  Formulaire de recherche en GET avec passage de donnee dans l'url-->
+  <form action="/films" method="get">
+    <input type="search" name="titre" placeholder="Recherche par titre..." th:value="${termeRecherche}">
+    <button>Recherche</button>
+  </form>
+  <h2>Liste des films<span th:if="${termeRecherche != ''}" th:text="| contenant '${termeRecherche}'|"></span></h2>
+  <ul>
+    <li th:each="film : ${filmList}">
+      <span th:text="|${film.titre} - ${film.dateSortie} - ${film.duree/60}h${(film.duree/60f) - film.duree/60}mn. - ${film.genre.getLibelle()} - |"></span>
+      <a th:href="|/films/detail?id=${film.id}|">Détail du film</a>
+<!--      <div>-->
+<!--        <img th:src="${film.image}" th:alt="|Affiche de ${film.titre}|">-->
+<!--      </div>-->
+    </li>
+  </ul>
+</body>
+</html>

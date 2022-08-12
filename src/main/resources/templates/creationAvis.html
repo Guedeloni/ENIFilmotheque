@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head th:replace="fragments/template :: head('FMQT - Avis - Création')"></head>
+<body>
+    <header th:replace="fragments/template :: header"></header>
+    <h2>Création d'un nouvel avis pour <span th:text="${film.titre}"/></h2>
+
+    <form th:action="|/prive/avis/creation?filmId=${film.id}|" method="post" th:object="${avis}">
+        <div>
+            <label for="note">Note (de 1 et 5) : </label>
+            <input type="number" th:field="*{note}" id="note" required>
+            <span class="error" th:errors="*{note}"></span>
+        </div>
+        <div>
+            <label for="commentaire">Commentaire : </label>
+            <textarea rows="3" cols="30" th:field="*{commentaire}" id="commentaire">
+            </textarea>
+        </div>
+        <button type="submit">Valider</button>
+    </form>
+    <h4 th:text="${message}"></h4>
+</body>
+</html>

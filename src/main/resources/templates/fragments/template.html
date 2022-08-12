@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <title th:text="${title}"></title>
+</head>
+<body>
+    <header id="header" th:fragment="header">
+        <nav>
+            <a th:href="@{/}">Accueil</a>
+            <a sec:authorize="!hasRole('admin')" th:href="@{/films}">Affichage des films</a>
+            <a sec:authorize="hasRole('admin')" th:href="@{/films}">Gestion des films</a>
+            <a sec:authorize="hasRole('admin')" th:href="@{/admin/participants}">Gestion des participants</a>
+            <a sec:authorize="hasRole('admin')" th:href="@{/admin/genres}">Gestion des genres</a>
+            <a sec:authorize="hasRole('admin')" th:href="@{/admin/membres}">Gestion des membres</a>
+<!--            <a sec:authorize="hasRole('admin')" th:href="@{/admin/avis}">Gestion des avis</a>-->
+            <section sec:authorize="isAuthenticated()">
+                <span th:text="|Vous êtes connecté en tant que : ${#authentication.name}|"></span>
+                <form th:action="@{/logout}" method="post">
+                    <button>Déconnexion</button>
+                </form>
+            </section>
+            <section sec:authorize="!isAuthenticated()">
+                <a th:href="@{/login}">Connexion</a>
+            </section>
+        </nav>
+        <h1>La fille Moquette</h1>
+    </header>
+
+    <main>
+
+    </main>
+
+    <footer id="footer" th:fragment="footer">
+        <ul>
+            <li>ENI - 08/2022</li>
+        </ul>
+    </footer>
+</body>
+</html>
